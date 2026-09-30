@@ -32,7 +32,7 @@ create or replace function public.crm_validate_deadline(
   confirmed_due_at timestamptz, source_reference text, professional_note text
 )
 returns public.crm_tasks language plpgsql security definer set search_path = public as $$
-declare current_task public.crm_tasks; updated_task public.crm_tasks;
+declare current_task public.crm_tasks; updated_task public.crm_tasks; actor_role public.crm_member_role;
 begin
   if decision not in ('validated', 'rejected') then raise exception 'Invalid validation decision'; end if;
   select * into current_task from public.crm_tasks where id = target_task_id for update;
